@@ -533,20 +533,122 @@ const cityData: CityData[] = [
       costGrowth: 60.0,
       unemploymentRate: 10.0
     }
-  }
-];
+  },
 
-interface CityStore {
-  cities: CityData[];
-  selectedCity: string;
-  comparisonCity: string | null;
-  userSalary: number;
-  setUserSalary: (salary: number) => void;
-  setSelectedCity: (city: string) => void;
-  setComparisonCity: (city: string | null) => void;
-  getSelectedCityData: () => CityData | undefined;
-  getComparisonCityData: () => CityData | undefined;
-}
+// adding more cities to the cityData array
+// Add these to your cityData array:
+{
+  id: 'ams',
+  name: 'Amsterdam',
+  country: 'Netherlands',
+  costOfLiving: {
+    rent: { oneBedroom: 1800, threeBedroom: 3000 },
+    utilities: 200,
+    groceries: 400,
+    transportation: 100
+  },
+  salary: {
+    median: 65000,
+    required: 75000,
+    industries: { tech: 85000, finance: 95000, healthcare: 70000 }
+  },
+  economics: {
+    inflation: 3.0,
+    costGrowth: 4.0,
+    unemploymentRate: 3.5
+  }
+},
+{
+  id: 'zrh',
+  name: 'Zurich',
+  country: 'Switzerland',
+  costOfLiving: {
+    rent: { oneBedroom: 2500, threeBedroom: 4000 },
+    utilities: 220,
+    groceries: 600,
+    transportation: 120
+  },
+  salary: {
+    median: 100000,
+    required: 110000,
+    industries: { tech: 120000, finance: 150000, healthcare: 90000 }
+  },
+  economics: {
+    inflation: 2.0,
+    costGrowth: 2.8,
+    unemploymentRate: 2.5
+  }
+},
+{
+  id: 'sel',
+  name: 'Seoul',
+  country: 'South Korea',
+  costOfLiving: {
+    rent: { oneBedroom: 1200, threeBedroom: 2200 },
+    utilities: 150,
+    groceries: 350,
+    transportation: 50
+  },
+  salary: {
+    median: 55000,
+    required: 65000,
+    industries: { tech: 75000, finance: 80000, healthcare: 60000 }
+  },
+  economics: {
+    inflation: 2.5,
+    costGrowth: 3.2,
+    unemploymentRate: 3.0
+  }
+},
+{
+  id: 'osl',
+  name: 'Oslo',
+  country: 'Norway',
+  costOfLiving: {
+    rent: {
+      oneBedroom: 1500,
+      threeBedroom: 2500
+    },
+    utilities: 200,
+    groceries: 500,
+    transportation: 80
+  },
+  salary: {
+    median: 60000,
+    required: 70000,
+    industries: {
+      tech: 80000,
+      finance: 90000,
+      healthcare: 70000
+    }
+  },
+  economics: {
+    inflation: 3.5,
+    costGrowth: 4.5,
+    unemploymentRate: 3.8
+  }
+},
+{
+  id: 'cpt',
+  name: 'Cape Town',
+  country: 'South Africa',
+  costOfLiving: {
+    rent: { oneBedroom: 600, threeBedroom: 1200 },
+    utilities: 100,
+    groceries: 250,
+    transportation: 50
+  },
+  salary: {
+    median: 18000,
+    required: 22000,
+    industries: { tech: 25000, finance: 30000, healthcare: 20000 }
+  },
+  economics: {
+    inflation: 5.5,
+    costGrowth: 6.5,
+    unemploymentRate: 25.0
+  }
+}];
 
 export const useCityStore = create<CityStore>((set, get) => ({
   cities: cityData,
@@ -559,3 +661,23 @@ export const useCityStore = create<CityStore>((set, get) => ({
   getSelectedCityData: () => get().cities.find(city => city.id === get().selectedCity),
   getComparisonCityData: () => get().comparisonCity ? get().cities.find(city => city.id === get().comparisonCity) : undefined
 }));
+
+// great website for info: https://www.numbeo.com/cost-of-living/in/Tokyo
+   /* Cost of Living:
+
+        Numbeo - Tokyo
+
+        Japan Guide - Living Costs -> https://www.japan-guide.com/e/e2225.html
+
+    Salaries:
+
+        Japan Salary Survey  - https://japan-dev.com/salary-guide
+
+        Glassdoor Tokyo Salaries - https://www.glassdoor.com/Salaries/tokyo-salary-SRCH_IL.0,5_IM1023.htm
+
+    Economic Data:
+
+        Japan Statistics Bureau - https://www.stat.go.jp/english/data/index.html
+
+        OECD Japan Report - https://data.oecd.org/japan.htm
+        */
