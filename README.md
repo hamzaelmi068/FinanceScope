@@ -1,8 +1,8 @@
 # FinanceScope 🌍 Your Global Cost-of-Living Companion
- ![image](https://github.com/user-attachments/assets/51da2284-6398-404d-a758-d0a7f134b100)
- 
 
-![Dashboard Preview](https://finance-scope.vercel.app/)
+![scope_finance](https://github.com/user-attachments/assets/e3c0f11c-7726-444b-b9d2-5f1fd1b9866b)
+
+
 
 *Because adulting shouldn't require a finance degree*
 
