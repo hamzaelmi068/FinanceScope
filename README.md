@@ -1,8 +1,24 @@
-# FinanceScope: Your Financial Planning Companion 🌍💰  
+# FinanceScope 🌍 Your Global Cost-of-Living Companion
+ ![image](https://github.com/user-attachments/assets/51da2284-6398-404d-a758-d0a7f134b100)
+ 
 
-## Overview  
-**FinanceScope** is a sleek, interactive dashboard designed to help users compare living costs, salaries, and affordability across cities worldwide. With rising costs and economic uncertainty, FinanceScope empowers you to make smarter financial decisions with data-driven insights.  
+![Dashboard Preview](https://finance-scope.vercel.app/)
 
+*Because adulting shouldn't require a finance degree*
+
+Ever wondered if you could actually afford that dream job in Paris? Or if moving to Austin would leave you eating ramen every night? Meet FinanceScope – your personal financial sherpa in the confusing world of cost comparisons.
+
+## 🧠 What Problem Are We Solving?
+
+Let's face it:  
+- 🤯 Cost-of-living calculators feel like they're from 1998  
+- 💸 Salary comparisons never include the *real* expenses  
+- 🌎 Relocation decisions shouldn't require 20 browser tabs  
+
+**FinanceScope cuts through the noise** with a single dashboard that answers:  
+*"Can I actually live well in this city with my salary?"*
+
+---
 ---
 
 ## Key Features 🚀  
