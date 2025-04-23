@@ -1,7 +1,7 @@
 import React from 'react';
+import { PiggyBank, TrendingDown, MapPin } from 'lucide-react';
 import { CityData } from '../types/city';
 import { analyzeBudget } from '../utils/budgetAnalyzer';
-import { PiggyBank, TrendingDown, MapPin } from 'lucide-react';
 
 interface BudgetAdviceProps {
   cityData: CityData;
@@ -12,95 +12,45 @@ interface BudgetAdviceProps {
 export function BudgetAdvice({ cityData, salary, isDarkMode }: BudgetAdviceProps) {
   const advice = analyzeBudget(cityData, salary);
   const monthlyIncome = salary / 12;
+  const cardBg = isDarkMode ? 'bg-gray-800' : 'bg-white';
+  const sectionBg = isDarkMode ? 'bg-gray-700' : 'bg-gray-100';
 
   return (
-    <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-      <h2 className="text-2xl font-bold mb-6">Financial Insights</h2>
-      
-      {/* Summary */}
-      <div className="mb-8">
-        <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-          {advice.summary}
-        </p>
+    <div className={`mt-12 p-6 rounded-2xl shadow-lg space-y-8 transition-all duration-300 ${cardBg}`}>
+      <div className="flex items-center gap-2">
+        <PiggyBank className="text-pink-500" />
+        <h2 className="text-2xl font-bold">Financial Insights</h2>
       </div>
 
-      {/* Monthly Budget Breakdown */}
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-4">Monthly Budget Breakdown</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {Object.entries(advice.monthlyBudget).map(([category, amount]) => (
-            <div
-              key={category}
-              className={`p-4 rounded-lg ${
-                isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
-              }`}
-            >
-              <p className="text-sm text-gray-500 capitalize">{category}</p>
-              <p className="text-xl font-bold">${amount.toFixed(0)}</p>
-              <p className="text-sm text-gray-500">
-                {((amount / monthlyIncome) * 100).toFixed(1)}% of income
-              </p>
-            </div>
-          ))}
+      <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+        {advice.summary}
+      </p>
+
+      <div>
+        <h3 className="text-xl font-semibold mb-4">📊 Monthly Budget Breakdown</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className={`p-4 rounded-xl ${sectionBg}`}>
+            <p className="text-sm text-gray-500 dark:text-gray-300">Estimated Monthly Income</p>
+            <p className="text-xl font-bold text-green-500 dark:text-green-400">${monthlyIncome.toFixed(2)}</p>
+          </div>
+          <div className={`p-4 rounded-xl ${sectionBg}`}>
+            <p className="text-sm text-gray-500 dark:text-gray-300">Rent & Utilities</p>
+            <p className="text-xl font-bold text-red-500 dark:text-red-400">${cityData.costOfLiving.rent.oneBedroom}</p>
+          </div>
+          <div className={`p-4 rounded-xl ${sectionBg}`}>
+            <p className="text-sm text-gray-500 dark:text-gray-300">Transportation</p>
+            <p className="text-xl font-bold text-blue-500 dark:text-blue-400">${cityData.costOfLiving.transport}</p>
+          </div>
+          <div className={`p-4 rounded-xl ${sectionBg}`}>
+            <p className="text-sm text-gray-500 dark:text-gray-300">Groceries & Essentials</p>
+            <p className="text-xl font-bold text-yellow-500 dark:text-yellow-400">${cityData.costOfLiving.groceries}</p>
+          </div>
         </div>
       </div>
 
-      {/* Recommendations */}
-      {advice.recommendations.length > 0 && (
-        <div className="mb-6">
-          <div className="flex items-center mb-3">
-            <PiggyBank className={`h-5 w-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} mr-2`} />
-            <h3 className="text-lg font-semibold">Recommendations</h3>
-          </div>
-          <ul className="space-y-2">
-            {advice.recommendations.map((rec, index) => (
-              <li key={index} className="flex items-start">
-                <span className={`ml-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {rec}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Savings Opportunities */}
-      {advice.savingsOpportunities.length > 0 && (
-        <div className="mb-6">
-          <div className="flex items-center mb-3">
-            <TrendingDown className={`h-5 w-5 ${isDarkMode ? 'text-green-400' : 'text-green-600'} mr-2`} />
-            <h3 className="text-lg font-semibold">Savings Opportunities</h3>
-          </div>
-          <ul className="space-y-2">
-            {advice.savingsOpportunities.map((opp, index) => (
-              <li key={index} className="flex items-start">
-                <span className={`ml-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {opp}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Alternative Cities */}
-      {advice.alternativeCities && (
-        <div>
-          <div className="flex items-center mb-3">
-            <MapPin className={`h-5 w-5 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'} mr-2`} />
-            <h3 className="text-lg font-semibold">Alternative Cities to Consider</h3>
-          </div>
-          <ul className="space-y-2">
-            {advice.alternativeCities.map((city, index) => (
-              <li key={index} className="flex items-start">
-                <span className={`ml-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {city} - More affordable housing market
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className="pt-6 border-t border-gray-300 dark:border-gray-600 text-sm text-gray-500 dark:text-gray-400">
+        Data based on latest averages for {cityData.name}, {cityData.country}
+      </div>
     </div>
   );
 }
