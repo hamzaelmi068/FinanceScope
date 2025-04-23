@@ -4,7 +4,6 @@ import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
 import { BudgetAdvice } from './components/BudgetAdvice';
 import { useCityStore } from './store/cityStore';
-import { motion } from 'framer-motion';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -53,14 +52,9 @@ function App() {
 
       {/* Hero Section */}
       <div className="pt-24 pb-12 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-semibold mb-2"
-        >
+        <h2 className="text-4xl font-semibold mb-2 transition-all duration-500 ease-out transform hover:scale-105">
           Compare Your Financial Power Globally
-        </motion.h2>
+        </h2>
         <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
           Enter your salary and explore how far your income can go across cities worldwide.
         </p>
@@ -81,22 +75,14 @@ function App() {
         <CitySelector />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
+          <div className="transition-opacity duration-700 opacity-100">
             <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
-          </motion.div>
+          </div>
 
           {comparisonCityData && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
+            <div className="transition-opacity duration-700 opacity-100">
               <CityCard data={comparisonCityData} isDarkMode={isDarkMode} />
-            </motion.div>
+            </div>
           )}
         </div>
 
@@ -112,3 +98,4 @@ function App() {
 }
 
 export default App;
+
