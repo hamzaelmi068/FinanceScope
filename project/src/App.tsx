@@ -13,7 +13,13 @@ function App() {
   const selectedCityData = getSelectedCityData();
   const comparisonCityData = getComparisonCityData();
 
-  if (!selectedCityData) return null;
+  if (!selectedCityData) {
+    return (
+      <div className="flex items-center justify-center h-screen text-gray-500 dark:text-gray-300">
+        Loading city data...
+      </div>
+    );
+  }
 
   return (
     <div
