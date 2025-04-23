@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Moon, Sun, DollarSign } from 'lucide-react';
 import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
@@ -10,10 +10,18 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { getSelectedCityData, getComparisonCityData, userSalary, setUserSalary } = useCityStore();
 
+  const [isLoading, setIsLoading] = useState(true);
   const selectedCityData = getSelectedCityData();
   const comparisonCityData = getComparisonCityData();
 
-  if (!selectedCityData) {
+  useEffect(() => {
+    console.log('selectedCityData:', selectedCityData);
+    if (selectedCityData) {
+      setIsLoading(false);
+    }
+  }, [selectedCityData]);
+
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen text-gray-500 dark:text-gray-300">
         Loading city data...
