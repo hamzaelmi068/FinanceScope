@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Moon, Sun, DollarSign } from 'lucide-react';
 import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
@@ -8,94 +8,97 @@ import { useCityStore } from './store/cityStore';
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { getSelectedCityData, getComparisonCityData, userSalary, setUserSalary } = useCityStore();
-
-  const [isLoading, setIsLoading] = useState(true);
+  
   const selectedCityData = getSelectedCityData();
   const comparisonCityData = getComparisonCityData();
 
-  useEffect(() => {
-    console.log('selectedCityData:', selectedCityData);
-    if (selectedCityData) {
-      setIsLoading(false);
-    }
-  }, [selectedCityData]);
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-gray-500 dark:text-gray-300">
-        Loading city data...
-      </div>
-    );
-  }
+  if (!selectedCityData) return null;
 
   return (
-    <div
-      className={`min-h-screen transition-colors duration-300 font-sans ${
-        isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
-      }`}
-    >
+    <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       {/* Navigation Bar */}
-      <nav className={`fixed w-full z-50 shadow-md ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold tracking-tight">
-            <DollarSign className="inline-block mr-1 text-green-500" /> FinanceScope
-          </h1>
-          <button
-            onClick={() => setIsDarkMode((prev) => !prev)}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-            aria-label="Toggle theme"
-          >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+      <nav className={`fixed w-full ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg z-50`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <DollarSign className={`h-8 w-8 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+              <span className={`ml-2 text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                FinanceScope
+              </span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className={`p-2 rounded-lg ${isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'}`}
+              >
+                {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="pt-24 pb-12 text-center">
-        <h2 className="text-4xl font-semibold mb-2 transition-all duration-500 ease-out transform hover:scale-105">
-          Compare Your Financial Power Globally
-        </h2>
-        <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-          Enter your salary and explore how far your income can go across cities worldwide.
-        </p>
-      </div>
-
-      {/* Salary Input and Selector */}
-      <div className="max-w-4xl mx-auto px-4 space-y-6">
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-          <input
-            type="number"
-            placeholder="Enter your salary ($)"
-            className="w-full sm:w-64 p-3 rounded-xl border dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm"
-            value={userSalary || ''}
-            onChange={(e) => setUserSalary(Number(e.target.value))}
+      {/* Main Content */}
+      <div className="pt-16">
+        {/* Hero Section */}
+        <div className="relative">
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80"
+            alt="City Skyline"
+            className="w-full h-[400px] object-cover"
           />
-        </div>
-
-        <CitySelector />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="transition-opacity duration-700 opacity-100">
-            <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
-          </div>
-
-          {comparisonCityData && (
-            <div className="transition-opacity duration-700 opacity-100">
-              <CityCard data={comparisonCityData} isDarkMode={isDarkMode} />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/90">
+            <div className="max-w-7xl mx-auto px-4 h-full flex items-center">
+              <div className="text-white">
+                <h1 className="text-4xl font-bold mb-4">
+                  Make Smarter Financial Decisions
+                </h1>
+                <p className="text-xl text-gray-200 mb-8">
+                  Compare living costs, track expenses, and plan your future with data-driven insights
+                </p>
+                <div className="space-y-4">
+                  <CitySelector />
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="number"
+                      value={userSalary}
+                      onChange={(e) => setUserSalary(Number(e.target.value))}
+                      placeholder="Enter your annual salary"
+                      className="pl-4 pr-4 py-2 rounded-lg w-[300px] text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
+          </div>
         </div>
 
-        <BudgetAdvice isDarkMode={isDarkMode} />
+        {/* Dashboard Grid */}
+        <div className={`max-w-7xl mx-auto px-4 py-8 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="space-y-8">
+              <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
+              <BudgetAdvice 
+                cityData={selectedCityData}
+                salary={userSalary}
+                isDarkMode={isDarkMode}
+              />
+            </div>
+            {comparisonCityData && (
+              <div className="space-y-8">
+                <CityCard data={comparisonCityData} isDarkMode={isDarkMode} />
+                <BudgetAdvice 
+                  cityData={comparisonCityData}
+                  salary={userSalary}
+                  isDarkMode={isDarkMode}
+                />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-
-      {/* Footer */}
-      <footer className="text-center mt-16 py-8 text-sm text-gray-400">
-        Built with ❤️ for global job seekers — <a href="https://github.com" className="underline">GitHub</a>
-      </footer>
     </div>
   );
 }
 
 export default App;
-
