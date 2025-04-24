@@ -3,7 +3,7 @@ import { Moon, Sun, DollarSign } from 'lucide-react';
 import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
 import { BudgetAdvice } from './components/BudgetAdvice';
-import { FinancialInsights } from './components/FinancialInsights';
+import FinancialInsights from './components/FinancialInsights';
 import { useCityStore } from './store/cityStore';
 
 function App() {
