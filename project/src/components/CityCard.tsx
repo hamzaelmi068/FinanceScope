@@ -8,61 +8,40 @@ interface CityCardProps {
 }
 
 export function CityCard({ data, isDarkMode }: CityCardProps) {
+  const cardBg = isDarkMode ? 'bg-gray-800' : 'bg-white';
+  const sectionBg = isDarkMode ? 'bg-gray-700' : 'bg-gray-100';
+  const textColor = isDarkMode ? 'text-blue-400' : 'text-blue-600';
+
   return (
-    <div className="space-y-6">
-      {/* Cost of Living Card */}
-      <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-        <div className="flex items-center mb-4">
-          <Home className={`h-6 w-6 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
-          <h2 className="ml-2 text-xl font-semibold">Cost of Living in {data.name}</h2>
-        </div>
-        <div className="space-y-4">
-          <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-            <p className="text-sm text-gray-500">Average Rent (1BR)</p>
-            <p className="text-2xl font-bold">${data.costOfLiving.rent.oneBedroom}</p>
-          </div>
-          <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-            <p className="text-sm text-gray-500">Monthly Expenses</p>
-            <p className="text-2xl font-bold">
-              ${data.costOfLiving.utilities + data.costOfLiving.groceries + data.costOfLiving.transportation}
-            </p>
-          </div>
-        </div>
+    <div className={`p-6 rounded-2xl shadow-xl space-y-6 ${cardBg} transition-all duration-300`}>
+      <div className="flex items-center gap-3">
+        <Home className={`h-6 w-6 ${textColor}`} />
+        <h2 className="text-2xl font-semibold">Living in {data.name}</h2>
       </div>
 
-      {/* Salary Insights Card */}
-      <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-        <div className="flex items-center mb-4">
-          <TrendingUp className={`h-6 w-6 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
-          <h2 className="ml-2 text-xl font-semibold">Salary Insights</h2>
-        </div>
-        <div className="space-y-4">
-          <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-            <p className="text-sm text-gray-500">Median Salary</p>
-            <p className="text-2xl font-bold">${data.salary.median.toLocaleString()}</p>
-          </div>
-          <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-            <p className="text-sm text-gray-500">Required for Comfortable Living</p>
-            <p className="text-2xl font-bold">${data.salary.required.toLocaleString()}</p>
-          </div>
-        </div>
+      <div className={`p-4 rounded-xl ${sectionBg}`}>
+        <p className="text-sm text-gray-500 dark:text-gray-300">Average Rent (1BR)</p>
+        <p className="text-2xl font-bold text-green-500 dark:text-green-400">${data.costOfLiving.rent.oneBedroom}</p>
       </div>
 
-      {/* Economic Trends Card */}
-      <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-        <div className="flex items-center mb-4">
-          <LineChart className={`h-6 w-6 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
-          <h2 className="ml-2 text-xl font-semibold">Economic Trends</h2>
-        </div>
-        <div className="space-y-4">
-          <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-            <p className="text-sm text-gray-500">Inflation Rate</p>
-            <p className="text-2xl font-bold">{data.economics.inflation}%</p>
-          </div>
-          <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-            <p className="text-sm text-gray-500">Cost Growth (YoY)</p>
-            <p className="text-2xl font-bold">+{data.economics.costGrowth}%</p>
-          </div>
+      <div className={`p-4 rounded-xl ${sectionBg}`}>
+        <p className="text-sm text-gray-500 dark:text-gray-300">Public Transport Monthly</p>
+        <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">${data.costOfLiving.transport}</p>
+      </div>
+
+      <div className={`p-4 rounded-xl ${sectionBg}`}>
+        <p className="text-sm text-gray-500 dark:text-gray-300">Grocery Basket</p>
+        <p className="text-2xl font-bold text-yellow-500 dark:text-yellow-400">${data.costOfLiving.groceries}</p>
+      </div>
+
+      <div className={`p-4 rounded-xl ${sectionBg}`}>
+        <p className="text-sm text-gray-500 dark:text-gray-300">Entertainment & Dining</p>
+        <p className="text-2xl font-bold text-pink-500 dark:text-pink-400">${data.costOfLiving.entertainment}</p>
+      </div>
+
+      <div className="pt-4 border-t border-gray-300 dark:border-gray-600">
+        <div className="flex items-center gap-2 text-sm text-gray-400">
+          <TrendingUp className="w-4 h-4" /> Salary Benchmark: <span className="text-white dark:text-green-300 font-semibold">${data.salary.average}</span>
         </div>
       </div>
     </div>
