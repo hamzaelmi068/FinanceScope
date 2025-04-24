@@ -32,50 +32,46 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 text-center bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4 tracking-tight">
-            Compare Your Financial Power Globally
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Enter your salary and explore how far your income can go across cities worldwide.
-          </p>
+      {/* Hero Section with image overlay */}
+      <section className="pt-24 pb-12 text-center relative">
+        <img
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80"
+          alt="City Skyline"
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+        />
+        <div className="relative z-10 bg-gradient-to-r from-blue-900/90 to-purple-900/90 py-20">
+          <div className="max-w-4xl mx-auto px-4 text-white">
+            <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
+              Make Smarter Financial Decisions
+            </h2>
+            <p className="text-lg mb-6">
+              Compare living costs, track expenses, and plan your future with data-driven insights
+            </p>
+            <div className="space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-center sm:gap-4">
+              <CitySelector />
+              <input
+                type="number"
+                placeholder="Enter your salary ($)"
+                className="p-3 rounded-lg text-gray-900 w-full sm:w-64 focus:ring-2 focus:ring-blue-400"
+                value={userSalary || ''}
+                onChange={(e) => setUserSalary(Number(e.target.value))}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Salary Input and Selector */}
-      <main className="max-w-5xl mx-auto px-4 space-y-6">
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-          <input
-            type="number"
-            placeholder="Enter your salary ($)"
-            className="w-full sm:w-64 p-3 rounded-xl border dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            value={userSalary || ''}
-            onChange={(e) => setUserSalary(Number(e.target.value))}
-          />
-        </div>
-
-        <CitySelector />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Dashboard Grid */}
+      <main className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-8">
             <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
-            <BudgetAdvice
-              cityData={selectedCityData}
-              salary={userSalary}
-              isDarkMode={isDarkMode}
-            />
+            <BudgetAdvice cityData={selectedCityData} salary={userSalary} isDarkMode={isDarkMode} />
           </div>
-
           {comparisonCityData && (
             <div className="space-y-8">
               <CityCard data={comparisonCityData} isDarkMode={isDarkMode} />
-              <BudgetAdvice
-                cityData={comparisonCityData}
-                salary={userSalary}
-                isDarkMode={isDarkMode}
-              />
+              <BudgetAdvice cityData={comparisonCityData} salary={userSalary} isDarkMode={isDarkMode} />
             </div>
           )}
         </div>
@@ -83,7 +79,7 @@ function App() {
 
       {/* Footer */}
       <footer className="text-center mt-16 py-8 text-sm text-gray-400">
-        Built with ❤️ for global job seekers — <a href="https://github.com" className="underline">GitHub</a> — {new Date().getFullYear()}
+        Built with ❤️ for global job seekers — <a href="https://github.com/hamzaelmi068/FinanceScope" className="underline">GitHub</a> — {new Date().getFullYear()}
       </footer>
     </div>
   );
