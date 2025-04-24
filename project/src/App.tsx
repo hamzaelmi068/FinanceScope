@@ -3,6 +3,7 @@ import { Moon, Sun, DollarSign } from 'lucide-react';
 import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
 import { BudgetAdvice } from './components/BudgetAdvice';
+import { FinancialInsights } from './components/FinancialInsights';
 import { useCityStore } from './store/cityStore';
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section with image overlay */}
+      {/* Hero Section */}
       <section className="pt-24 pb-12 text-center relative">
         <img
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80"
@@ -75,6 +76,9 @@ function App() {
             </div>
           )}
         </div>
+
+        {/* Financial Insights */}
+        <FinancialInsights cityData={selectedCityData} salary={userSalary} />
       </main>
 
       {/* Footer */}
