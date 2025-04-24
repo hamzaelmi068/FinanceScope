@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Moon, Sun, DollarSign } from 'lucide-react';
 import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
@@ -9,30 +9,13 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { getSelectedCityData, getComparisonCityData, userSalary, setUserSalary } = useCityStore();
 
-  const [isLoading, setIsLoading] = useState(true);
   const selectedCityData = getSelectedCityData();
   const comparisonCityData = getComparisonCityData();
 
-  useEffect(() => {
-    if (selectedCityData) {
-      setIsLoading(false);
-    }
-  }, [selectedCityData]);
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-gray-500 dark:text-gray-300">
-        Loading city data...
-      </div>
-    );
-  }
+  if (!selectedCityData) return null;
 
   return (
-    <div
-      className={`min-h-screen transition-colors duration-300 font-sans ${
-        isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
-      }`}
-    >
+    <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
       {/* Navigation Bar */}
       <nav className={`fixed w-full z-50 shadow-md ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -76,18 +59,26 @@ function App() {
         <CitySelector />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="transition-opacity duration-700 opacity-100">
+          <div className="space-y-8">
             <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
+            <BudgetAdvice
+              cityData={selectedCityData}
+              salary={userSalary}
+              isDarkMode={isDarkMode}
+            />
           </div>
 
           {comparisonCityData && (
-            <div className="transition-opacity duration-700 opacity-100">
+            <div className="space-y-8">
               <CityCard data={comparisonCityData} isDarkMode={isDarkMode} />
+              <BudgetAdvice
+                cityData={comparisonCityData}
+                salary={userSalary}
+                isDarkMode={isDarkMode}
+              />
             </div>
           )}
         </div>
-
-        <BudgetAdvice isDarkMode={isDarkMode} />
       </main>
 
       {/* Footer */}
