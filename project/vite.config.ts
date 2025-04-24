@@ -9,6 +9,3 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
 });
-git add vite.config.ts
-git commit -m "Set Vite base path to './' for Vercel compatibility"
-git push
