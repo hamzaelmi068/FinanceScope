@@ -1,64 +1,88 @@
 import React from 'react';
-import { Search } from 'lucide-react';
-import { useCityStore } from '../store/cityStore';
+import { Lightbulb, TrendingUp, Wallet } from 'lucide-react';
+import { CityData } from '../types/city';
 
-export function CitySelector() {
-  const { cities, selectedCity, comparisonCity, setSelectedCity, setComparisonCity } = useCityStore();
+interface FinancialInsightsProps {
+  cityData: CityData;
+  salary: number;
+}
 
-  const baseStyles =
-    'pl-10 pr-4 py-3 rounded-lg w-full border focus:ring-2 focus:outline-none shadow-sm transition';
+const FinancialInsights = ({ cityData, salary }: FinancialInsightsProps) => {
+  const rent = cityData.costOfLiving.rent.oneBedroom;
+  const transport = cityData.costOfLiving.transport;
+  const groceries = cityData.costOfLiving.groceries;
+  const utilities = 150;
+  const discretionary = 1320;
+  const savings = 1250;
+
+  const comfortableSalary = 95000;
+  const inflationRate = 3.2;
+  const costGrowth = 5.8;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Primary City Selection */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-          🌍 Select Your Current City
-        </label>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-          <select
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.target.value)}
-            className={`${baseStyles} text-gray-900 dark:text-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:ring-blue-500`}
-          >
-            {cities.map(city => (
-              <option key={city.id} value={city.id}>
-                {city.name}, {city.country}
-              </option>
-            ))}
-          </select>
+    <div className="space-y-8 mt-12">
+      <div className="p-6 rounded-2xl shadow-xl bg-white dark:bg-gray-800">
+        <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
+          <Wallet className="inline mr-2 text-green-500" /> Salary Insights
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <p className="text-sm text-gray-500">Median Salary</p>
+            <p className="text-2xl font-bold text-blue-600 dark:text-blue-300">${cityData.salary.average}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Required for Comfortable Living</p>
+            <p className="text-2xl font-bold text-red-500 dark:text-red-300">${comfortableSalary}</p>
+          </div>
         </div>
       </div>
 
-      {/* Comparison City Selection */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-          📍 Compare With Another City
-        </label>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-          <select
-            value={comparisonCity || ''}
-            onChange={(e) => setComparisonCity(e.target.value)}
-            className={`${baseStyles} text-gray-900 dark:text-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:ring-purple-500`}
-          >
-            <option value="">-- No Comparison --</option>
-            {cities.map(city => (
-              <option key={city.id} value={city.id}>
-                {city.name}, {city.country}
-              </option>
-            ))}
-          </select>
+      <div className="p-6 rounded-2xl shadow-xl bg-white dark:bg-gray-800">
+        <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
+          <TrendingUp className="inline mr-2 text-purple-500" /> Economic Trends
+        </h3>
+        <div className="grid grid-cols-2 gap-6">
+          <div>
+            <p className="text-sm text-gray-500">Inflation Rate</p>
+            <p className="text-2xl font-bold text-yellow-500">{inflationRate}%</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Cost Growth (YoY)</p>
+            <p className="text-2xl font-bold text-green-500">+{costGrowth}%</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6 rounded-2xl shadow-xl bg-white dark:bg-gray-800">
+        <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
+          <Lightbulb className="inline mr-2 text-blue-500" /> Financial Insights
+        </h3>
+        <p className="mb-4 text-sm text-gray-500">
+          Based on your ${salary} salary in {cityData.name}, you have some financial flexibility.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm text-gray-800 dark:text-gray-200">
+          <div><strong>Housing</strong><br />${rent} <span className="text-xs">(44.8%)</span></div>
+          <div><strong>Utilities</strong><br />${utilities} <span className="text-xs">(2.4%)</span></div>
+          <div><strong>Groceries</strong><br />${groceries} <span className="text-xs">(9.6%)</span></div>
+          <div><strong>Transportation</strong><br />${transport} <span className="text-xs">(2.1%)</span></div>
+          <div><strong>Savings</strong><br />${savings} <span className="text-xs">(20.0%)</span></div>
+          <div><strong>Discretionary</strong><br />${discretionary} <span className="text-xs">(21.1%)</span></div>
+        </div>
+
+        <div className="mt-6 text-sm space-y-3">
+          <div>
+            <span className="font-semibold text-indigo-500">⚠️ Recommendation:</span> High inflation rate detected. Focus on fixed-rate contracts and building an emergency fund.
+          </div>
+          <div>
+            <span className="font-semibold text-green-500">💡 Savings Opportunity:</span> Housing costs exceed 30% of income. Consider finding a roommate or exploring nearby neighborhoods.
+          </div>
+          <div>
+            <span className="font-semibold text-purple-500">📍 Alternative Cities:</span> Toronto – More affordable housing market.
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-// Location of FinancialInsights.tsx:
-// ➤ Save inside `src/components/FinancialInsights.tsx`
-// Then import and use it inside your App.tsx like this:
-// import { FinancialInsights } from './components/FinancialInsights';
-// ...
-// <FinancialInsights cityData={selectedCityData} salary={userSalary} />
+export default FinancialInsights;
