@@ -10,6 +10,7 @@ export interface CityData {
     utilities: number;
     groceries: number;
     transportation: number;
+    entertainment: number; // Added this line
   };
   salary: {
     median: number;
@@ -34,6 +35,7 @@ export interface BudgetAdvice {
     utilities: number;
     groceries: number;
     transportation: number;
+    entertainment?: number; // Added this optional field
     savings: number;
     discretionary: number;
   };
