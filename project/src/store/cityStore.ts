@@ -13,7 +13,8 @@ const cityData: CityData[] = [
       },
       utilities: 150,
       groceries: 600,
-      transportation: 130
+      transportation: 130,
+      entertainment: 500
     },
     salary: {
       median: 85000,
@@ -41,7 +42,8 @@ const cityData: CityData[] = [
       },
       utilities: 180,
       groceries: 650,
-      transportation: 100
+      transportation: 100,
+      entertainment: 550
     },
     salary: {
       median: 112000,
@@ -69,7 +71,8 @@ const cityData: CityData[] = [
       },
       utilities: 200,
       groceries: 500,
-      transportation: 150
+      transportation: 150,
+      entertainment: 400
     },
     salary: {
       median: 75000,
@@ -97,7 +100,8 @@ const cityData: CityData[] = [
       },
       utilities: 160,
       groceries: 550,
-      transportation: 140
+      transportation: 140,
+      entertainment: 350
     },
     salary: {
       median: 80000,
@@ -125,7 +129,8 @@ const cityData: CityData[] = [
       },
       utilities: 200,
       groceries: 400,
-      transportation: 90
+      transportation: 90,
+      entertainment: 300
     },
     salary: {
       median: 60000,
@@ -153,7 +158,8 @@ const cityData: CityData[] = [
       },
       utilities: 180,
       groceries: 500,
-      transportation: 100
+      transportation: 100,
+      entertainment: 350
     },
     salary: {
       median: 70000,
@@ -181,7 +187,8 @@ const cityData: CityData[] = [
       },
       utilities: 220,
       groceries: 550,
-      transportation: 120
+      transportation: 120,
+      entertainment: 400
     },
     salary: {
       median: 85000,
@@ -209,7 +216,8 @@ const cityData: CityData[] = [
       },
       utilities: 150,
       groceries: 450,
-      transportation: 80
+      transportation: 80,
+      entertainment: 350
     },
     salary: {
       median: 65000,
@@ -237,7 +245,8 @@ const cityData: CityData[] = [
       },
       utilities: 200,
       groceries: 600,
-      transportation: 100
+      transportation: 100,
+      entertainment: 450
     },
     salary: {
       median: 90000,
@@ -265,7 +274,8 @@ const cityData: CityData[] = [
       },
       utilities: 180,
       groceries: 550,
-      transportation: 120
+      transportation: 120,
+      entertainment: 400
     },
     salary: {
       median: 80000,
@@ -293,7 +303,8 @@ const cityData: CityData[] = [
       },
       utilities: 150,
       groceries: 500,
-      transportation: 100
+      transportation: 100,
+      entertainment: 450
     },
     salary: {
       median: 85000,
@@ -321,7 +332,8 @@ const cityData: CityData[] = [
       },
       utilities: 50,
       groceries: 200,
-      transportation: 30
+      transportation: 30,
+      entertainment: 150
     },
     salary: {
       median: 15000,
@@ -349,7 +361,8 @@ const cityData: CityData[] = [
       },
       utilities: 100,
       groceries: 300,
-      transportation: 50
+      transportation: 50,
+      entertainment: 200
     },
     salary: {
       median: 20000,
@@ -377,7 +390,8 @@ const cityData: CityData[] = [
       },
       utilities: 80,
       groceries: 250,
-      transportation: 40
+      transportation: 40,
+      entertainment: 180
     },
     salary: {
       median: 18000,
@@ -405,7 +419,8 @@ const cityData: CityData[] = [
       },
       utilities: 100,
       groceries: 200,
-      transportation: 50
+      transportation: 50,
+      entertainment: 150
     },
     salary: {
       median: 15000,
@@ -433,7 +448,8 @@ const cityData: CityData[] = [
       },
       utilities: 80,
       groceries: 200,
-      transportation: 40
+      transportation: 40,
+      entertainment: 120
     },
     salary: {
       median: 12000,
@@ -461,7 +477,8 @@ const cityData: CityData[] = [
       },
       utilities: 100,
       groceries: 200,
-      transportation: 50
+      transportation: 50,
+      entertainment: 150
     },
     salary: {
       median: 15000,
@@ -489,7 +506,8 @@ const cityData: CityData[] = [
       },
       utilities: 60,
       groceries: 150,
-      transportation: 30
+      transportation: 30,
+      entertainment: 100
     },
     salary: {
       median: 10000,
@@ -517,7 +535,8 @@ const cityData: CityData[] = [
       },
       utilities: 50,
       groceries: 150,
-      transportation: 20
+      transportation: 20,
+      entertainment: 80
     },
     salary: {
       median: 10000,
@@ -534,121 +553,136 @@ const cityData: CityData[] = [
       unemploymentRate: 10.0
     }
   },
-
-// adding more cities to the cityData array
-// Add these to your cityData array:
-{
-  id: 'ams',
-  name: 'Amsterdam',
-  country: 'Netherlands',
-  costOfLiving: {
-    rent: { oneBedroom: 1800, threeBedroom: 3000 },
-    utilities: 200,
-    groceries: 400,
-    transportation: 100
-  },
-  salary: {
-    median: 65000,
-    required: 75000,
-    industries: { tech: 85000, finance: 95000, healthcare: 70000 }
-  },
-  economics: {
-    inflation: 3.0,
-    costGrowth: 4.0,
-    unemploymentRate: 3.5
-  }
-},
-{
-  id: 'zrh',
-  name: 'Zurich',
-  country: 'Switzerland',
-  costOfLiving: {
-    rent: { oneBedroom: 2500, threeBedroom: 4000 },
-    utilities: 220,
-    groceries: 600,
-    transportation: 120
-  },
-  salary: {
-    median: 100000,
-    required: 110000,
-    industries: { tech: 120000, finance: 150000, healthcare: 90000 }
-  },
-  economics: {
-    inflation: 2.0,
-    costGrowth: 2.8,
-    unemploymentRate: 2.5
-  }
-},
-{
-  id: 'sel',
-  name: 'Seoul',
-  country: 'South Korea',
-  costOfLiving: {
-    rent: { oneBedroom: 1200, threeBedroom: 2200 },
-    utilities: 150,
-    groceries: 350,
-    transportation: 50
-  },
-  salary: {
-    median: 55000,
-    required: 65000,
-    industries: { tech: 75000, finance: 80000, healthcare: 60000 }
-  },
-  economics: {
-    inflation: 2.5,
-    costGrowth: 3.2,
-    unemploymentRate: 3.0
-  }
-},
-{
-  id: 'osl',
-  name: 'Oslo',
-  country: 'Norway',
-  costOfLiving: {
-    rent: {
-      oneBedroom: 1500,
-      threeBedroom: 2500
+  {
+    id: 'ams',
+    name: 'Amsterdam',
+    country: 'Netherlands',
+    costOfLiving: {
+      rent: { oneBedroom: 1800, threeBedroom: 3000 },
+      utilities: 200,
+      groceries: 400,
+      transportation: 100,
+      entertainment: 350
     },
-    utilities: 200,
-    groceries: 500,
-    transportation: 80
-  },
-  salary: {
-    median: 60000,
-    required: 70000,
-    industries: {
-      tech: 80000,
-      finance: 90000,
-      healthcare: 70000
+    salary: {
+      median: 65000,
+      required: 75000,
+      industries: { tech: 85000, finance: 95000, healthcare: 70000 }
+    },
+    economics: {
+      inflation: 3.0,
+      costGrowth: 4.0,
+      unemploymentRate: 3.5
     }
   },
-  economics: {
-    inflation: 3.5,
-    costGrowth: 4.5,
-    unemploymentRate: 3.8
-  }
-},
-{
-  id: 'cpt',
-  name: 'Cape Town',
-  country: 'South Africa',
-  costOfLiving: {
-    rent: { oneBedroom: 600, threeBedroom: 1200 },
-    utilities: 100,
-    groceries: 250,
-    transportation: 50
+  {
+    id: 'zrh',
+    name: 'Zurich',
+    country: 'Switzerland',
+    costOfLiving: {
+      rent: { oneBedroom: 2500, threeBedroom: 4000 },
+      utilities: 220,
+      groceries: 600,
+      transportation: 120,
+      entertainment: 500
+    },
+    salary: {
+      median: 100000,
+      required: 110000,
+      industries: { tech: 120000, finance: 150000, healthcare: 90000 }
+    },
+    economics: {
+      inflation: 2.0,
+      costGrowth: 2.8,
+      unemploymentRate: 2.5
+    }
   },
-  salary: {
-    median: 18000,
-    required: 22000,
-    industries: { tech: 25000, finance: 30000, healthcare: 20000 }
+  {
+    id: 'sel',
+    name: 'Seoul',
+    country: 'South Korea',
+    costOfLiving: {
+      rent: { oneBedroom: 1200, threeBedroom: 2200 },
+      utilities: 150,
+      groceries: 350,
+      transportation: 50,
+      entertainment: 300
+    },
+    salary: {
+      median: 55000,
+      required: 65000,
+      industries: { tech: 75000, finance: 80000, healthcare: 60000 }
+    },
+    economics: {
+      inflation: 2.5,
+      costGrowth: 3.2,
+      unemploymentRate: 3.0
+    }
   },
-  economics: {
-    inflation: 5.5,
-    costGrowth: 6.5,
-    unemploymentRate: 25.0
+  {
+    id: 'osl',
+    name: 'Oslo',
+    country: 'Norway',
+    costOfLiving: {
+      rent: {
+        oneBedroom: 1500,
+        threeBedroom: 2500
+      },
+      utilities: 200,
+      groceries: 500,
+      transportation: 80,
+      entertainment: 400
+    },
+    salary: {
+      median: 60000,
+      required: 70000,
+      industries: {
+        tech: 80000,
+        finance: 90000,
+        healthcare: 70000
+      }
+    },
+    economics: {
+      inflation: 3.5,
+      costGrowth: 4.5,
+      unemploymentRate: 3.8
+    }
+  },
+  {
+    id: 'cpt',
+    name: 'Cape Town',
+    country: 'South Africa',
+    costOfLiving: {
+      rent: { oneBedroom: 600, threeBedroom: 1200 },
+      utilities: 100,
+      groceries: 250,
+      transportation: 50,
+      entertainment: 150
+    },
+    salary: {
+      median: 18000,
+      required: 22000,
+      industries: { tech: 25000, finance: 30000, healthcare: 20000 }
+    },
+    economics: {
+      inflation: 5.5,
+      costGrowth: 6.5,
+      unemploymentRate: 25.0
+    }
   }
-}];
+];
+
+interface CityStore {
+  cities: CityData[];
+  selectedCity: string;
+  comparisonCity: string | null;
+  userSalary: number;
+  setUserSalary: (salary: number) => void;
+  setSelectedCity: (city: string) => void;
+  setComparisonCity: (city: string) => void;
+  getSelectedCityData: () => CityData | undefined;
+  getComparisonCityData: () => CityData | undefined;
+}
 
 export const useCityStore = create<CityStore>((set, get) => ({
   cities: cityData,
@@ -661,23 +695,3 @@ export const useCityStore = create<CityStore>((set, get) => ({
   getSelectedCityData: () => get().cities.find(city => city.id === get().selectedCity),
   getComparisonCityData: () => get().comparisonCity ? get().cities.find(city => city.id === get().comparisonCity) : undefined
 }));
-
-// great website for info: https://www.numbeo.com/cost-of-living/in/Tokyo
-   /* Cost of Living:
-
-        Numbeo - Tokyo
-
-        Japan Guide - Living Costs -> https://www.japan-guide.com/e/e2225.html
-
-    Salaries:
-
-        Japan Salary Survey  - https://japan-dev.com/salary-guide
-
-        Glassdoor Tokyo Salaries - https://www.glassdoor.com/Salaries/tokyo-salary-SRCH_IL.0,5_IM1023.htm
-
-    Economic Data:
-
-        Japan Statistics Bureau - https://www.stat.go.jp/english/data/index.html
-
-        OECD Japan Report - https://data.oecd.org/japan.htm
-        */
