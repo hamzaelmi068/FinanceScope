@@ -25,7 +25,7 @@ export function CityCard({ data, isDarkMode }: CityCardProps) {
 
       <div className={`p-4 rounded-xl ${sectionBg}`}>
         <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">🚌 Public Transport Monthly</p>
-        <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">${data.costOfLiving.transport}</p>
+        <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">${data.costOfLiving.transportation}</p>
       </div>
 
       <div className={`p-4 rounded-xl ${sectionBg}`}>
@@ -35,13 +35,13 @@ export function CityCard({ data, isDarkMode }: CityCardProps) {
 
       <div className={`p-4 rounded-xl ${sectionBg}`}>
         <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">🎭 Entertainment & Dining</p>
-        <p className="text-2xl font-bold text-pink-500 dark:text-pink-400">${data.costOfLiving.entertainment}</p>
+        <p className="text-2xl font-bold text-pink-500 dark:text-pink-400">${data.costOfLiving.utilities}</p>
       </div>
 
       <div className="pt-4 border-t border-gray-300 dark:border-gray-600">
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
           <TrendingUp className="w-4 h-4 text-green-400" />
-          Salary Benchmark: <span className="font-semibold">${data.salary.average}</span>
+          Salary Benchmark: <span className="font-semibold">${data.salary.median}</span>
         </div>
       </div>
     </div>
