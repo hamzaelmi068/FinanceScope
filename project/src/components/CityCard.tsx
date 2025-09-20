@@ -35,7 +35,7 @@ export function CityCard({ data, isDarkMode }: CityCardProps) {
 
       <div className={`p-4 rounded-xl ${sectionBg}`}>
         <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">🎭 Entertainment & Dining</p>
-        <p className="text-2xl font-bold text-pink-500 dark:text-pink-400">${data.costOfLiving.utilities}</p>
+        <p className="text-2xl font-bold text-pink-500 dark:text-pink-400">${data.costOfLiving.entertainment}</p>
       </div>
 
       <div className="pt-4 border-t border-gray-300 dark:border-gray-600">
