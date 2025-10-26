@@ -1,0 +1,55 @@
+{
+  "name": "finance-scope",
+  "version": "2.0.0",
+  "description": "Your Global Cost-of-Living Companion - Compare living costs, track expenses, and plan your future with data-driven insights",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules/.vite"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "zustand": "^5.0.3",
+    "framer-motion": "^10.16.1",
+    "lucide-react": "^0.266.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.0",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  },
+  "keywords": [
+    "finance",
+    "cost-of-living",
+    "budget",
+    "comparison",
+    "react",
+    "typescript",
+    "vite"
+  ],
+  "author": "hamzaelmi068",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hamzaelmi068/FinanceScope.git"
+  },
+  "homepage": "https://finance-scope.vercel.app"
+}
