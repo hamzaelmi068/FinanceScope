@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRightLeft, DollarSign, Euro, PoundSterling, Yen, RefreshCw, TrendingUp } from 'lucide-react';
+import { ArrowRightLeft, DollarSign, Euro, PoundSterling, RefreshCw, TrendingUp } from 'lucide-react';
 import { CityData } from '../types/city';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -23,7 +23,7 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
     { code: 'USD', name: 'US Dollar', icon: DollarSign, symbol: '$' },
     { code: 'EUR', name: 'Euro', icon: Euro, symbol: '€' },
     { code: 'GBP', name: 'British Pound', icon: PoundSterling, symbol: '£' },
-    { code: 'JPY', name: 'Japanese Yen', icon: Yen, symbol: '¥' },
+    { code: 'JPY', name: 'Japanese Yen', icon: DollarSign, symbol: '¥' },
     { code: 'CAD', name: 'Canadian Dollar', icon: DollarSign, symbol: 'C$' },
     { code: 'AUD', name: 'Australian Dollar', icon: DollarSign, symbol: 'A$' },
     { code: 'CHF', name: 'Swiss Franc', icon: DollarSign, symbol: 'CHF' },
