@@ -49,7 +49,7 @@ function App() {
         <div className="relative z-10 py-20">
           <div className="max-w-6xl mx-auto px-4 text-white">
             <h2 className="text-5xl sm:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-              Make Smarter Financial Decisions
+              🚀 ENHANCED FinanceScope - Make Smarter Financial Decisions
             </h2>
             <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
               Compare living costs, track expenses, and plan your future with comprehensive data-driven insights
@@ -144,7 +144,8 @@ function App() {
           </div>
           
           <div className="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 text-center text-gray-500 dark:text-gray-400">
-            <p>Built with ❤️ for global job seekers — {new Date().getFullYear()}</p>
+            <p>🚀 ENHANCED VERSION - Built with ❤️ for global job seekers — {new Date().getFullYear()}</p>
+            <p className="text-sm mt-2">✨ New features: Enhanced UI, better insights, improved design</p>
           </div>
         </div>
       </footer>
