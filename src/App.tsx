@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
-import { Moon, Sun, DollarSign } from 'lucide-react';
+import { Moon, Sun, DollarSign, BarChart3, Calculator, Search, Target } from 'lucide-react';
 import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
 import { BudgetAdvice } from './components/BudgetAdvice';
+import { AdvancedCharts } from './components/AdvancedCharts';
+import { CurrencyConverter, CityCostConverter } from './components/CurrencyConverter';
+import { FinancialGoalCalculator } from './components/FinancialGoalCalculator';
+import { AdvancedCityFilter } from './components/AdvancedCityFilter';
 import FinancialInsights from './components/FinancialInsights';
 import { useCityStore } from './store/cityStore';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const { getSelectedCityData, getComparisonCityData, userSalary, setUserSalary } = useCityStore();
+  const [activeTab, setActiveTab] = useState('overview');
+  const { getSelectedCityData, getComparisonCityData, userSalary, setUserSalary, cities } = useCityStore();
 
   const selectedCityData = getSelectedCityData();
   const comparisonCityData = getComparisonCityData();
 
   if (!selectedCityData) return null;
+
+  const tabs = [
+    { id: 'overview', label: 'Overview', icon: DollarSign },
+    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+    { id: 'goals', label: 'Goals', icon: Target },
+    { id: 'converter', label: 'Converter', icon: Calculator },
+    { id: 'search', label: 'Search', icon: Search }
+  ];
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
@@ -29,13 +42,15 @@ function App() {
             </h1>
           </div>
           
-          <button
-            onClick={() => setIsDarkMode((prev) => !prev)}
-            className="p-2 rounded-full transition-all duration-200 hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            aria-label="Toggle theme"
-          >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsDarkMode((prev) => !prev)}
+              className="p-2 rounded-full transition-all duration-200 hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -76,24 +91,81 @@ function App() {
         </div>
       </section>
 
-      {/* Dashboard Grid */}
-      <main className="max-w-7xl mx-auto px-4 py-12">
-        <div className="space-y-12">
-          {/* City Cards Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
-            
-            {comparisonCityData && (
-              <CityCard data={comparisonCityData} isDarkMode={isDarkMode} isComparison={true} />
-            )}
+      {/* Tab Navigation */}
+      <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex space-x-8 overflow-x-auto">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 py-4 px-2 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                }`}
+              >
+                <tab.icon className="h-4 w-4" />
+                {tab.label}
+              </button>
+            ))}
           </div>
-
-          {/* Financial Insights Section */}
-          <BudgetAdvice cityData={selectedCityData} salary={userSalary} />
-
-          {/* Additional Financial Insights */}
-          <FinancialInsights cityData={selectedCityData} salary={userSalary} />
         </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-12">
+        {activeTab === 'overview' && (
+          <div className="space-y-12">
+            {/* City Cards Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
+              
+              {comparisonCityData && (
+                <CityCard data={comparisonCityData} isDarkMode={isDarkMode} isComparison={true} />
+              )}
+            </div>
+
+            {/* Financial Insights Section */}
+            <BudgetAdvice cityData={selectedCityData} salary={userSalary} />
+
+            {/* Additional Financial Insights */}
+            <FinancialInsights cityData={selectedCityData} salary={userSalary} />
+          </div>
+        )}
+
+        {activeTab === 'analytics' && (
+          <AdvancedCharts 
+            primaryCity={selectedCityData} 
+            comparisonCity={comparisonCityData} 
+            salary={userSalary} 
+          />
+        )}
+
+        {activeTab === 'goals' && (
+          <FinancialGoalCalculator 
+            cityData={selectedCityData} 
+            salary={userSalary} 
+          />
+        )}
+
+        {activeTab === 'converter' && (
+          <CityCostConverter 
+            cityData={selectedCityData} 
+            salary={userSalary} 
+          />
+        )}
+
+        {activeTab === 'search' && (
+          <AdvancedCityFilter 
+            cities={cities}
+            onCitySelect={(city) => {
+              // You would implement city selection logic here
+              console.log('Selected city:', city);
+            }}
+            selectedCity={selectedCityData}
+          />
+        )}
       </main>
 
       {/* Footer */}
@@ -119,6 +191,8 @@ function App() {
                 <li>Salary Insights</li>
                 <li>Financial Planning Tools</li>
                 <li>Real-time Data</li>
+                <li>Interactive Charts</li>
+                <li>Goal Tracking</li>
               </ul>
             </div>
             
