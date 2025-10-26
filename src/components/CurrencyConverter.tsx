@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRightLeft, DollarSign, Euro, PoundSterling, Yen, RefreshCw } from 'lucide-react';
+import { ArrowRightLeft, DollarSign, Euro, PoundSterling, Yen, RefreshCw, TrendingUp } from 'lucide-react';
 import { CityData } from '../types/city';
+import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 interface CurrencyConverterProps {
   amount: number;
@@ -36,6 +38,7 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
       const data = await response.json();
       setRates(data.rates);
       setLastUpdated(new Date());
+      toast.success('Exchange rates updated!');
     } catch (error) {
       console.error('Error fetching exchange rates:', error);
       // Fallback rates for demo
@@ -50,6 +53,7 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
         CNY: 6.45
       });
       setLastUpdated(new Date());
+      toast.error('Using fallback rates');
     } finally {
       setLoading(false);
     }
@@ -73,7 +77,12 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
   const toCurrencyInfo = currencies.find(c => c.code === toCurrency);
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
+    >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <ArrowRightLeft className="h-6 w-6 text-blue-500" />
@@ -127,8 +136,9 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
         {/* Currency Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {currencies.map((currency) => (
-            <div
+            <motion.div
               key={currency.code}
+              whileHover={{ scale: 1.05 }}
               className={`p-3 rounded-lg border-2 transition-colors cursor-pointer ${
                 fromCurrency === currency.code || toCurrency === currency.code
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30'
@@ -144,11 +154,11 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 {currency.name}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -171,7 +181,12 @@ export function CityCostConverter({ cityData, salary }: CityCostConverterProps) 
   ];
 
   return (
-    <div className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="space-y-6"
+    >
       <div className="text-center">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
           💱 Convert Costs to Different Currencies
@@ -194,18 +209,24 @@ export function CityCostConverter({ cityData, salary }: CityCostConverterProps) 
           </h4>
           <div className="space-y-3">
             {costs.map((cost, index) => (
-              <div key={index} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+              >
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {cost.name}
                 </span>
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">
                   ${cost.amount.toLocaleString()}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
