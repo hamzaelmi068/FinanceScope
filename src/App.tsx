@@ -3,35 +3,22 @@ import { Moon, Sun, DollarSign, BarChart3, Calculator, Search, Target } from 'lu
 import { CitySelector } from './components/CitySelector';
 import { CityCard } from './components/CityCard';
 import { BudgetAdvice } from './components/BudgetAdvice';
-import { AdvancedCharts } from './components/AdvancedCharts';
-import { CurrencyConverter, CityCostConverter } from './components/CurrencyConverter';
-import { FinancialGoalCalculator } from './components/FinancialGoalCalculator';
-import { AdvancedCityFilter } from './components/AdvancedCityFilter';
 import FinancialInsights from './components/FinancialInsights';
 import { useCityStore } from './store/cityStore';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [activeTab, setActiveTab] = useState('overview');
-  const { getSelectedCityData, getComparisonCityData, userSalary, setUserSalary, cities } = useCityStore();
+  const { getSelectedCityData, getComparisonCityData, userSalary, setUserSalary } = useCityStore();
 
   const selectedCityData = getSelectedCityData();
   const comparisonCityData = getComparisonCityData();
 
   if (!selectedCityData) return null;
 
-  const tabs = [
-    { id: 'overview', label: 'Overview', icon: DollarSign },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-    { id: 'goals', label: 'Goals', icon: Target },
-    { id: 'converter', label: 'Converter', icon: Calculator },
-    { id: 'search', label: 'Search', icon: Search }
-  ];
-
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
-      {/* Navigation Bar */}
-      <nav className={`fixed w-full z-50 shadow-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      {/* Enhanced Navigation Bar */}
+      <nav className={`fixed w-full z-50 shadow-lg backdrop-blur-md ${isDarkMode ? 'bg-gray-800/95' : 'bg-white/95'}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
@@ -54,7 +41,7 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Enhanced Hero Section */}
       <section className="pt-24 pb-16 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 opacity-90" />
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20" />
@@ -91,84 +78,27 @@ function App() {
         </div>
       </section>
 
-      {/* Tab Navigation */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex space-x-8 overflow-x-auto">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 py-4 px-2 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                }`}
-              >
-                <tab.icon className="h-4 w-4" />
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
+      {/* Enhanced Dashboard Grid */}
       <main className="max-w-7xl mx-auto px-4 py-12">
-        {activeTab === 'overview' && (
-          <div className="space-y-12">
-            {/* City Cards Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
-              
-              {comparisonCityData && (
-                <CityCard data={comparisonCityData} isDarkMode={isDarkMode} isComparison={true} />
-              )}
-            </div>
-
-            {/* Financial Insights Section */}
-            <BudgetAdvice cityData={selectedCityData} salary={userSalary} />
-
-            {/* Additional Financial Insights */}
-            <FinancialInsights cityData={selectedCityData} salary={userSalary} />
+        <div className="space-y-12">
+          {/* City Cards Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <CityCard data={selectedCityData} isDarkMode={isDarkMode} />
+            
+            {comparisonCityData && (
+              <CityCard data={comparisonCityData} isDarkMode={isDarkMode} isComparison={true} />
+            )}
           </div>
-        )}
 
-        {activeTab === 'analytics' && (
-          <AdvancedCharts 
-            primaryCity={selectedCityData} 
-            comparisonCity={comparisonCityData} 
-            salary={userSalary} 
-          />
-        )}
+          {/* Financial Insights Section */}
+          <BudgetAdvice cityData={selectedCityData} salary={userSalary} />
 
-        {activeTab === 'goals' && (
-          <FinancialGoalCalculator 
-            cityData={selectedCityData} 
-            salary={userSalary} 
-          />
-        )}
-
-        {activeTab === 'converter' && (
-          <CityCostConverter 
-            cityData={selectedCityData} 
-            salary={userSalary} 
-          />
-        )}
-
-        {activeTab === 'search' && (
-          <AdvancedCityFilter 
-            cities={cities}
-            onCitySelect={(city) => {
-              // You would implement city selection logic here
-              console.log('Selected city:', city);
-            }}
-            selectedCity={selectedCityData}
-          />
-        )}
+          {/* Additional Financial Insights */}
+          <FinancialInsights cityData={selectedCityData} salary={userSalary} />
+        </div>
       </main>
 
-      {/* Footer */}
+      {/* Enhanced Footer */}
       <footer className="bg-gray-100 dark:bg-gray-800 mt-16 py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
