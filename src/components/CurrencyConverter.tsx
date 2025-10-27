@@ -18,6 +18,9 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
   const [rates, setRates] = useState<ExchangeRates>({});
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [selectedFromCurrency, setSelectedFromCurrency] = useState(fromCurrency);
+  const [selectedToCurrency, setSelectedToCurrency] = useState(toCurrency);
+  const [inputAmount, setInputAmount] = useState(amount);
 
   const currencies = [
     { code: 'USD', name: 'US Dollar', icon: DollarSign, symbol: '$' },
@@ -72,9 +75,14 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
     return usdAmount * rates[to];
   };
 
-  const convertedAmount = convertAmount(amount, fromCurrency, toCurrency);
-  const fromCurrencyInfo = currencies.find(c => c.code === fromCurrency);
-  const toCurrencyInfo = currencies.find(c => c.code === toCurrency);
+  const convertedAmount = convertAmount(inputAmount, selectedFromCurrency, selectedToCurrency);
+  const fromCurrencyInfo = currencies.find(c => c.code === selectedFromCurrency);
+  const toCurrencyInfo = currencies.find(c => c.code === selectedToCurrency);
+
+  const swapCurrencies = () => {
+    setSelectedFromCurrency(selectedToCurrency);
+    setSelectedToCurrency(selectedFromCurrency);
+  };
 
   return (
     <motion.div
@@ -99,7 +107,72 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
+        {/* Input Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* From Currency */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              From
+            </label>
+            <div className="flex gap-2">
+              <select
+                value={selectedFromCurrency}
+                onChange={(e) => setSelectedFromCurrency(e.target.value)}
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                {currencies.map(currency => (
+                  <option key={currency.code} value={currency.code}>
+                    {currency.code}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="number"
+                value={inputAmount}
+                onChange={(e) => setInputAmount(Number(e.target.value))}
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                placeholder="Enter amount"
+              />
+            </div>
+          </div>
+
+          {/* To Currency */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              To
+            </label>
+            <div className="flex gap-2">
+              <select
+                value={selectedToCurrency}
+                onChange={(e) => setSelectedToCurrency(e.target.value)}
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                {currencies.map(currency => (
+                  <option key={currency.code} value={currency.code}>
+                    {currency.code}
+                  </option>
+                ))}
+              </select>
+              <div className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-600 text-gray-900 dark:text-white">
+                {convertedAmount.toLocaleString()}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Swap Button */}
+        <div className="text-center">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={swapCurrencies}
+            className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
+          >
+            <ArrowRightLeft className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          </motion.button>
+        </div>
+
         {/* Conversion Display */}
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-700">
           <div className="text-center">
@@ -107,7 +180,7 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
               <div className="flex items-center gap-2">
                 {fromCurrencyInfo && <fromCurrencyInfo.icon className="h-6 w-6 text-gray-600 dark:text-gray-400" />}
                 <span className="text-lg font-medium text-gray-700 dark:text-gray-300">
-                  {fromCurrencyInfo?.symbol} {amount.toLocaleString()}
+                  {fromCurrencyInfo?.symbol} {inputAmount.toLocaleString()}
                 </span>
               </div>
               <ArrowRightLeft className="h-5 w-5 text-gray-400" />
@@ -119,7 +192,7 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
               </div>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              1 {fromCurrency} = {(rates[toCurrency] / rates[fromCurrency]).toFixed(4)} {toCurrency}
+              1 {selectedFromCurrency} = {(rates[selectedToCurrency] / rates[selectedFromCurrency]).toFixed(4)} {selectedToCurrency}
             </p>
           </div>
         </div>
@@ -140,10 +213,19 @@ export function CurrencyConverter({ amount, fromCurrency, toCurrency }: Currency
               key={currency.code}
               whileHover={{ scale: 1.05 }}
               className={`p-3 rounded-lg border-2 transition-colors cursor-pointer ${
-                fromCurrency === currency.code || toCurrency === currency.code
+                selectedFromCurrency === currency.code || selectedToCurrency === currency.code
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30'
                   : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
+              onClick={() => {
+                if (selectedFromCurrency === currency.code) {
+                  setSelectedToCurrency(currency.code);
+                } else if (selectedToCurrency === currency.code) {
+                  setSelectedFromCurrency(currency.code);
+                } else {
+                  setSelectedFromCurrency(currency.code);
+                }
+              }}
             >
               <div className="flex items-center gap-2">
                 <currency.icon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
