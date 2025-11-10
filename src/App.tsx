@@ -22,6 +22,26 @@ function App() {
 
   if (!selectedCityData) return null;
 
+  const heroGradient = isDarkMode
+    ? 'from-blue-600 via-purple-600 to-indigo-800'
+    : 'from-[#FFE29F]/95 via-[#FFA99F]/95 to-[#FDE1FF]/95';
+  const heroImageOpacity = isDarkMode ? 'opacity-20' : 'opacity-10';
+  const pageBackgroundStyle = !isDarkMode
+    ? { background: 'linear-gradient(135deg, #FFF7FA 0%, #FFF1E6 45%, #FFE7FB 100%)' }
+    : undefined;
+  const navClasses = isDarkMode
+    ? 'bg-gray-800/95 border-b border-gray-700'
+    : 'bg-white/80 border-b border-[#FFD6E5]';
+  const tabContainerClasses = isDarkMode
+    ? 'bg-gray-800 border-gray-700'
+    : 'bg-white/70 backdrop-blur-xl border-[#FFD6E5] shadow-sm';
+  const activeTabClasses = isDarkMode
+    ? 'border-blue-500 text-blue-400'
+    : 'border-[#FF8FB7] text-[#E255A1]';
+  const inactiveTabClasses = isDarkMode
+    ? 'border-transparent text-gray-400 hover:text-gray-300'
+    : 'border-transparent text-gray-500 hover:text-gray-700';
+
   const tabs = [
     { id: 'overview', label: 'Overview', icon: Home },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
@@ -31,7 +51,12 @@ function App() {
   ];
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div
+      className={`min-h-screen transition-colors duration-500 ${
+        isDarkMode ? 'dark bg-gray-900 text-white' : 'text-gray-900'
+      }`}
+      style={pageBackgroundStyle}
+    >
       {/* Toast Notifications */}
       <Toaster 
         position="top-right"
@@ -45,7 +70,7 @@ function App() {
       />
 
       {/* Enhanced Navigation Bar */}
-      <nav className={`fixed w-full z-50 shadow-lg backdrop-blur-md ${isDarkMode ? 'bg-gray-800/95' : 'bg-white/95'}`}>
+      <nav className={`fixed w-full z-50 shadow-lg backdrop-blur-md ${navClasses}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -81,8 +106,10 @@ function App() {
 
       {/* Enhanced Hero Section */}
       <section className="pt-24 pb-16 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 opacity-90" />
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20" />
+        <div className={`absolute inset-0 bg-gradient-to-br ${heroGradient}`} />
+        <div
+          className={`absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center ${heroImageOpacity}`}
+        />
         
         <div className="relative z-10 py-20">
           <div className="max-w-6xl mx-auto px-4 text-white">
@@ -128,7 +155,7 @@ function App() {
       </section>
 
       {/* Tab Navigation */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+      <div className={`shadow-sm border-b ${tabContainerClasses}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex space-x-8 overflow-x-auto">
             {tabs.map((tab) => (
@@ -138,9 +165,7 @@ function App() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 py-4 px-2 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                  activeTab === tab.id ? activeTabClasses : inactiveTabClasses
                 }`}
               >
                 <tab.icon className="h-4 w-4" />
