@@ -83,10 +83,29 @@ function App() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-              <DollarSign className="h-6 w-6 text-green-600 dark:text-green-400" />
+            <div
+              className={`p-2 rounded-lg transition-all ${
+                isDarkMode
+                  ? 'bg-green-900/30'
+                  : 'bg-white/80 shadow-[0_10px_30px_rgba(127,58,141,0.18)]'
+              }`}
+            >
+              <DollarSign
+                className={`h-6 w-6 transition-colors ${
+                  isDarkMode ? 'text-green-400' : 'text-[#7F3A8D]'
+                }`}
+              />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h1
+              className={`text-2xl font-bold tracking-tight transition-colors ${
+                isDarkMode ? 'text-white' : 'text-[#7F3A8D]'
+              }`}
+              style={
+                !isDarkMode
+                  ? { textShadow: '0 10px 28px rgba(127,58,141,0.25)' }
+                  : undefined
+              }
+            >
               FinanceScope
             </h1>
           </motion.div>
