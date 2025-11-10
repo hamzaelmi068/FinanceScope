@@ -41,6 +41,12 @@ function App() {
   const inactiveTabClasses = isDarkMode
     ? 'border-transparent text-gray-400 hover:text-gray-300'
     : 'border-transparent text-gray-500 hover:text-gray-700';
+  const heroTitleClasses = isDarkMode
+    ? 'text-5xl sm:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent'
+    : 'text-5xl sm:text-6xl font-extrabold mb-6 text-[#312452] drop-shadow-[0_6px_18px_rgba(102,51,153,0.25)]';
+  const heroSubtitleClasses = isDarkMode
+    ? 'text-xl mb-8 text-blue-100'
+    : 'text-xl mb-8 text-[#5D3E72]';
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: Home },
@@ -118,10 +124,10 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-5xl sm:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              <h2 className={heroTitleClasses}>
                 Make Smarter Financial Decisions
               </h2>
-              <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+              <p className={`${heroSubtitleClasses} max-w-3xl mx-auto`}>
                 Compare living costs, track expenses, and plan your future with comprehensive data-driven insights
               </p>
             </motion.div>
